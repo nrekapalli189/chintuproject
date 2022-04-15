@@ -20,7 +20,6 @@ spec:
       - name: javawebapp
         image: nrekapalli189/myproject1
         name: latest
-        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 
