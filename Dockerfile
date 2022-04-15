@@ -1,13 +1,13 @@
-FROM maven:3.5-jdk-8 AS build
-        WORKDIR /usr/src/app
-        COPY src ./src
-        COPY pom.xml .
-        RUN mvn -f /usr/src/app/pom.xml clean -Dmaven.test.skip=true package
+FROM openjdk:8-alpine
 
+# Required for starting application up.
+RUN apk update && apk add /bin/sh
 
+RUN mkdir -p /opt/app
+ENV PROJECT_HOME /opt/app
 
+COPY target/customerwebapp-1.0-SNAPSHOT.war $PROJECT_HOME/customerwebapp.war
 
-        FROM dordoka/tomcat
-        COPY --from=build /usr/src/app/target/*.war /opt/tomcat/webapps/customerapp.war
-        EXPOSE 8080
-        CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+WORKDIR $PROJECT_HOME
+
+CMD ["java" ,"-war","./customerwebapp.war"]
