@@ -19,7 +19,6 @@ spec:
       containers:
       - name: javawebapp
         image: nrekapalli189/myproject1
-        name: latest
         ports:
         - containerPort: 8080
 
