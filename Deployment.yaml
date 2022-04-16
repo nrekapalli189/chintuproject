@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: javawebapp
+ name: customerapp
  labels:
-   app: javawebapp
+   app: customerapp
 spec:
  replicas: 2
  selector:
    matchLabels:
-    app: javawebapp
+    app: customerapp
  template:
     metadata:
-      name:  javawebapp-pod
+      name:  customerapp-pod
       labels:
-        app: javawebapp
+        app: customerapp
         tier: dev
     spec:
       containers:
-      - name: javawebapp
+      - name: customerapp
         image: nrekapalli189/myproject1
         name: latest
         ports:
@@ -27,11 +27,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: javawebapp
+  name: customerapp
 spec:
   type: LoadBalancer
   selector:
-    app: javawebapp
+    app: customerapp
 
   ports:
   - protocol: TCP
